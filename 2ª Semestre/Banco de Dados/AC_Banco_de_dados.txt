@@ -1,0 +1,64 @@
+create table funcionario(
+codigo int,
+nome varchar(50) not null,
+datanascimento int,
+cpf varchar(14),
+rg varchar(9),
+endereco varchar(30),
+cep varchar(9),
+telefone varchar(13),
+codigodepartamento int not null,
+funcao varchar(20), 
+salario decimal,
+primary key(codigo)
+);
+
+
+create table departamento(
+codigo int  not null ,
+nome varchar(50), 
+localizacao varchar(50), 
+codigoFuncionario int not null,
+primary key(codigoFuncionario)
+
+);
+
+
+
+insert into funcionario (codigo, nome, datanascimento, cpf, rg, endereco, cep, telefone, codigodepartamento, funcao, salario) values(123456, 'João Silva', 140202, 034589874, 2589547, 'Avenida paulista', 0348576, 1130065844, '1914', 'Programador', 4500);
+insert into departamento (codigo, nome, localizacao, codigoFuncionario) values(7891011, 'Tecnologia', 'Avenida Santo Amaro', 123456);
+
+select * from funcionario;
+select * from departamento;
+
+delete from funcionario where datanascimento = 140202;
+
+update departamento set codigo =7891011  where nome = 'Tecnologia';
+
+alter table funcionario add idade int;
+
+alter table funcionario drop nome;
+
+alter table funcionario modify endereco varchar(40);
+
+alter table funcionario change 
+
+select Modelo, Placa from Taxi; (Selecionar colunas da tabela).
+select * from Taxi where AnoFab >2000 (Selecionar itens da tabela com uma condição).
+
+select Modelo, Placa from Taxi where Placa like 'D'; (Usa - se like para um novo filtro)
+
+select Modelo, Placa from Taxi where Placa like '%7_';
+
+select AnoFab as 'Ano de Fabricação' from Taxi where Placa like '%7_';
+
+# exemplo dela:
+
+select * from Cliente where Nome like '%a_' (Penúltima letra).
+
+select Nome from Cliente order by Nome; (coloca o desc no final para fazer de forma decrescente.)
+
+select Cl.Nome, Co.Placa from Cliente as Cl, Corrida as Co where Cl.CliId=Co.CliId;
+
+# usar o describe para aparecer a tabela.
+

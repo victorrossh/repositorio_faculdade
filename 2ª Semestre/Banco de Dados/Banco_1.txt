@@ -1,0 +1,136 @@
+
+CREATE TABLE Taxi(
+Placa VARCHAR(7),
+Marca VARCHAR(30) NOT NULL,
+Modelo VARCHAR(30) NOT NULL,
+AnoFab integer,
+Licenca VARCHAR(9),
+primary key (Placa)
+);
+
+
+CREATE TABLE Cliente(
+CliID varchar(4) NOT NULL
+Nome varchar(20) NOT NULL,
+CPF varchar(14) NOT NULL,
+primary key (CliID)
+);
+
+CREATE TABLE Corrida(
+CliID varchar(4) NOT NULL,
+Placa varchar(7) NOT NULL,
+DataPedido DATE NOT NULL,
+PRIMARY KEY (CliID, Placa, DataPedido),
+FOREIGN KEY (CliID) REFERENCES Cliente(CliID),
+FOREIGN KEY (Placa) REFERENCES Taxi (Placa),
+);
+
+alter table Cliente add endereco varchar(80);
+alter table Cliente modify Nome varchar(120);
+alter table Cliente drop column endereco;
+alter table Corrida add constraint foreign key(Placa) references Taxi(Placa);
+
+CREATE TABLE Cliente (
+  CliId VARCHAR(4) NOT NULL,
+  Nome VARCHAR(80) NOT NULL,
+  CPF VARCHAR(14) NOT NULL,
+  PRIMARY KEY(CliId)
+);
+
+CREATE TABLE Corrida (
+  CliId VARCHAR(4) NOT NULL,
+  Placa VARCHAR(7) NOT NULL,
+  DataPedido DATE NOT NULL,
+  PRIMARY KEY(CliId, Placa, DataPedido),
+  FOREIGN KEY(CliId)
+    REFERENCES Cliente(CliId)
+);
+
+CREATE TABLE Taxi (
+  Placa VARCHAR(7) NOT NULL,
+  Marca VARCHAR(30) NOT NULL,
+  Modelo VARCHAR(30) NOT NULL,
+  AnoFab INTEGER,
+  Licenca VARCHAR(9),
+PRIMARY KEY(Placa)
+);
+alter table Corrida add constraint foreign key(Placa) references Taxi(Placa);
+describe Corrida;
+
+select CliId as 'Codigo Cliente' from Cliente;
+select * from Taxi;
+select * from Corrida;
+
+update Taxi set AnoFab='2020' Where Placa = 'DAE6534';
+
+delete from Taxi WHERE Placa = 'DAE6534';
+
+select Modelo, Placa from Taxi; (Selecionar colunas da tabela).
+select * from Taxi where AnoFab >2000 (Selecionar itens da tabela com uma condição).
+
+select Modelo, Placa from Taxi where Placa like 'D'; (Usa - se like para um novo filtro)
+
+select Modelo, Placa from Taxi where Placa like '%7_';
+
+select AnoFab as 'Ano de Fabricação' from Taxi where Placa like '%7_';
+
+# exemplo dela:
+
+select * from Cliente where Nome like '%a_' (Penúltima letra).
+
+select Nome from Cliente order by Nome; (coloca o desc no final para fazer de forma decrescente.)
+
+select Cl.Nome, Co.Placa from Cliente as Cl, Corrida as Co where Cl.CliId=Co.CliId;
+
+# usar o describe para aparecer a tabela.
+
+
+
+
+
+select Modelo, Placa from Taxi; (Selecionar colunas da tabela).
+select * from Taxi where AnoFab >2000 (Selecionar itens da tabela com uma condição).
+
+select Modelo, Placa from Taxi where Placa like 'D'; (Usa - se like para um novo filtro)
+
+select Modelo, Placa from Taxi where Placa like '%7_';
+
+select AnoFab as 'Ano de Fabricação' from Taxi where Placa like '%7_';
+
+# exemplo dela:
+
+select * from Cliente where Nome like '%a_' (Penúltima letra).
+
+select Nome from Cliente order by Nome; (coloca o desc no final para fazer de forma decrescente.)
+
+select Cl.Nome, Co.Placa from Cliente as Cl, Corrida as Co where Cl.CliId=Co.CliId;
+
+# usar o describe para aparecer a tabela.
+
+
+# linguagem de consulta
+
+select Nome, CliID from Cliente where nome like 'c%'
+
+select * from Cliente where nome like %Junior% (Para qualquer posição)
+
+select placa, modelo from taxi where AnoFab between 2001 and 2003 and (Modelo='Gol' or Modelo='Fiesta')
+
+select distinct Modelo from Taxi;
+
+select distinct Modelo from Taxi order by Modelo;
+
+select Cliente.CliId, Cliente.Nome, Corrida.Placa from Cliente,Corrida where Cliente.CliId=Corrida.CliId;
+
+select Cl.CliId, CliNome, Co.Placa from Cliente Cl,Corrida Co where Cl.CliId=Co.CliId;
+alterar nome de colunas sem o as
+
+select Cl.CliId as ID, Cl.Nome,Co.Placa 'Placa do Taxi' from Cliente as Cl,Corrida as Co where Cl.CliId=Co.CliId;
+
+
+
+select Cl.CliId, Cl.Nome,Co.CliId,Co.Placa from Cliente as Cl,Corrida as Co where Cl.CliId=Co.CliId;
+
+
+select Tx.Placa,Co.CliId from Taxi as Tx, Corrida as Co where Tx.Placa = Co.Placa; implicito
+select Tx.Placa,Co.CliId from Taxi as Tx join Corrida as Co on Tx.Placa = Co.Placa; explicito
